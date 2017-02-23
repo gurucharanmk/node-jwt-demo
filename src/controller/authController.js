@@ -1,18 +1,18 @@
-import express from 'express';
 import jwt from 'jsonwebtoken';
-import User from '../../models/auth/auth';
-import config from '../../config/config_dev';
-
-const authRouter = express.Router();
+import User from '../models/auth';
+import config from '../config/config';
 
 /**
- * Register new users
- */
-authRouter.post('/register', function (req, res) {
+ * Register user with valid email and hash the password with pre hooking
+ * @param req
+ * @param res
+ * @returns {*}
+*/
+exports.register =  (req, res) => {
   if (!req.body.email || !req.body.password) {
     res.json({
       success: false,
-      message: 'Error:Invaid email/passwrd enty',
+      message: 'Error:Invaid email/passwrd entry',
     });
   } else {
     const newUser = new User({
@@ -23,7 +23,7 @@ authRouter.post('/register', function (req, res) {
     });
 
     // An attempt to save the user
-    newUser.save(function (err) {
+    newUser.save( (err) => {
       if (err) {
         return res.json({
           success: false,
@@ -36,12 +36,15 @@ authRouter.post('/register', function (req, res) {
       });
     });
   }
-});
+}
 
 /**
- * Authenticate the user and get a JSON Web Token to include in the header for future requests.
- */
-authRouter.post('/login', function (req, res) {
+ * Returns jwt token for valid email and password is provided
+ * @param req
+ * @param res
+ * @returns {*}
+*/
+exports.login = (req, res) => {
   User.findOne({
     email: req.body.email,
   }, function (err, user) {
@@ -76,6 +79,4 @@ authRouter.post('/login', function (req, res) {
       });
     }
   });
-});
-
-export default authRouter;
+}

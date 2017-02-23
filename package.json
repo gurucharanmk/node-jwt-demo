@@ -7,31 +7,22 @@
   "license": "MIT",
   "dependencies": {
     "bcrypt": "^1.0.2",
-    "body-parser": "^1.15.2",
-    "cors": "^2.8.1",
-    "crypto": "^0.0.3",
-    "express": "^4.14.0",
-    "jsonwebtoken": "^7.2.1",
-    "mongoose": "^4.7.5",
-    "morgan": "^1.7.0",
+    "body-parser": "^1.16.1",
+    "compression": "^1.6.2",
+    "express": "^4.14.1",
+    "express-validator": "^3.1.2",
+    "helmet": "^3.4.0",
+    "jsonwebtoken": "^7.3.0",
+    "mongoose": "^4.8.2",
     "passport": "^0.3.2",
-    "passport-jwt": "^2.2.1",
-    "passport-local": "^1.0.0"
+    "passport-jwt": "^2.2.1"
   },
   "devDependencies": {
-    "babel-core": "^6.21.0",
-    "babel-loader": "^6.2.10",
-    "babel-polyfill": "^6.20.0",
-    "babel-preset-es2015": "^6.18.0",
-    "babel-preset-es2016": "^6.16.0",
-    "babel-register": "^6.18.0",
+    "babel-core": "^6.23.1",
+    "babel-preset-es2015": "^6.22.0",
     "del": "^2.2.2",
-    "eslint": "^3.13.1",
-    "eslint-config-airbnb-base": "^11.0.1",
-    "eslint-plugin-import": "^2.2.0",
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
-    "gulp-eslint": "^3.0.1",
     "gulp-exclude-gitignore": "^1.1.1"
   }
 }

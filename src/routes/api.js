@@ -7,5 +7,4 @@ apiRouter.get('/simple', passport.authenticate('jwt', { session: false }), funct
   res.json({ status: 1, message: 'A Simple API route' });
 });
 
-// module.exports = apiRouter;
 export default apiRouter;

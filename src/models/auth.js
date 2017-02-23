@@ -27,9 +27,9 @@ const UserSchema = new Schema({
     }*/
 }, { collection: 'user' }); // Forcing mongoose to use "user" as collection name (http://stackoverflow.com/questions/7486528/mongoose-force-collection-name)
 
-/**
- * Password hash middleware for hash password if password is modified or new
- */
+ /**
+  * Middleware for pre-save hook to hash the password if password is modified or new
+  */
 UserSchema.pre('save', function save(next) {
   const user = this;
   // only hash the password if it has been modified
@@ -47,7 +47,7 @@ UserSchema.pre('save', function save(next) {
 });
 
 /**
- * Helper method to compare password for login
+ * Helper method to compare password, used with login middleware
  */
 UserSchema.methods.comparePassword = function (candidatePassword, cb) {
   bcrypt.compare(candidatePassword, this.password, (err, isMatch) => {
@@ -56,8 +56,8 @@ UserSchema.methods.comparePassword = function (candidatePassword, cb) {
   });
 };
 
-// We need to create a model using it
+/**
+ * Creating mongoose model for user and exporting as module
+ */
 let User = mongoose.model('User', UserSchema);
-
-// Make this available to our users in our Node applications
 export default User;

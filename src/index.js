@@ -1,31 +1,25 @@
+import http from 'http';
 import express from 'express';
-import morgan from 'morgan';
-import bodyParser from 'body-parser';
-import cors from 'cors';
-import mongoose from 'mongoose';
+import helmet from 'helmet';
+import bodyParser from 'body-parser'
 import passport from 'passport';
+import mongoose from 'mongoose';
 
-import config from './config/config_dev';
-import apiRouter from './routes/api/api';
-import authRouter from './routes/auth/auth';
-import passportStrategy from './config/passport';
+import apiRouter from './routes/api';
+import authRouter from './routes/auth';
+import jwtLogin from './config/passport';
+import config from './config/config';
+passport.use(jwtLogin);
 
-const app = express();
-
-// Use body-parser to get POST requests for API use
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-app.use(cors());
-
-// Log requests to console
-app.use(morgan('dev'));
+let app = express();
+app.use(helmet());
+app.use(passport.initialize());
 
 // Database Connection
 mongoose.connect(config.database);
 
-// Init passport
-app.use(passport.initialize());
-passportStrategy(passport);
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 // Routes
 app.use('/api', apiRouter);
@@ -46,7 +40,6 @@ app.use(function (error, req, res, next) {
   next();
 });
 
-// Start the server
-app.listen(config.port, function () {
-  console.log(`Listening to port ${config.port}.`);
-});
+let server = http.createServer(app);
+server.listen(process.env.PORT || config.port);
+console.log(`Started on port ${server.address().port}`);
