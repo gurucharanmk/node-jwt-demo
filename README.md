@@ -20,6 +20,15 @@ Mongodb needs to be preinstalled on the system and Edit src/config/config_dev.js
 
 ```bash
 yarn install
-gulp transpile
+gulp prepublish
 node lib/index.js
 ```
+## Verification using Postman?
+1.User Registration
+![Screenshot](userRegistration.png)
+
+2.User Login
+![Screenshot](userLogin.png)
+
+3.Accessing secured routes
+![Screenshot](apiUsage.png)
